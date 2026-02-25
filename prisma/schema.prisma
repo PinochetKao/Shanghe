@@ -58,3 +58,14 @@ model CompetitionRegistration {
   referer        String?
   createdAt      DateTime @default(now())
 }
+
+model HomePageConfig {
+  id              String   @id @default(cuid())
+  hero            Json
+  sectors         Json
+  featuredProjects Json
+  affiliations    Json
+  about           Json
+  footer          Json
+  updatedAt       DateTime @updatedAt
+}

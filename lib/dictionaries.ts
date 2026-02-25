@@ -24,4 +24,5 @@ const dictionaries = {
   }
 } as const;
 
-export const getDictionary = (locale: Locale) => dictionaries[locale] ?? dictionaries.zh;
+export const getDictionary = (locale: Locale) =>
+  (dictionaries[locale as keyof typeof dictionaries] ?? dictionaries.zh) as (typeof dictionaries)['zh'];

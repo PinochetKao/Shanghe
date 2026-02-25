@@ -8,6 +8,7 @@ import { i18nConfig } from '@/lib/i18n';
 export function LanguageSwitcher({ currentLocale }: { currentLocale: string }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const localePattern = new RegExp(`^/(${i18nConfig.locales.map((item) => item.code).join('|')})(?=/|$)`);
 
   return (
     <div className="relative">
@@ -21,7 +22,7 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: string }) {
       {open && (
         <div className="absolute right-0 z-20 mt-2 w-44 rounded-lg border bg-white p-2 shadow-lg">
           {i18nConfig.locales.map((item) => {
-            const target = pathname.replace(/^\/(zh|en|ru)/, `/${item.code}`);
+            const target = pathname.replace(localePattern, `/${item.code}`);
             return (
               <Link
                 key={item.code}
