@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model PageContent {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  title     Json
+  body      Json
+  updatedAt DateTime @updatedAt
+}
+
+model News {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     Json
+  excerpt   Json
+  content   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  locale    String
+  referer   String?
+  createdAt DateTime @default(now())
+}
+
+model CompetitionRegistration {
+  id             String   @id @default(cuid())
+  name           String
+  gender         String
+  phone          String
+  email          String
+  school         String
+  department     String
+  major          String
+  grade          String
+  educationLevel String
+  locale         String
+  referer        String?
+  createdAt      DateTime @default(now())
+}
+
+
+model HomePageConfig {
+  id               String   @id @default(cuid())
+  hero             Json
+  sectors          Json
+  featuredProjects Json
+  affiliations     Json
+  about            Json
+  footer           Json
+  updatedAt        DateTime @updatedAt
+}

@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --silk-gold: #D4AF37;
+  --official-blue: #003366;
+  --text-main: #333333;
+}
+
+html, body {
+  @apply bg-slate-50;
+  font-family: PingFang SC, Microsoft YaHei, Helvetica Neue, Arial, sans-serif;
+  color: var(--text-main);
+  overflow-x: hidden;
+}
+
+input, textarea, select, button {
+  min-height: 44px;
+}
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--official-blue);
+  transition: transform .2s ease;
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,.45) 10%, transparent 10.01%) center/0% 0% no-repeat;
+  transition: background-size .35s ease;
+}
+
+.btn-ripple:active::after {
+  background-size: 180% 180%;
+}
