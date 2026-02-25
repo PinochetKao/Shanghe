@@ -151,3 +151,24 @@ sudo certbot --nginx -d yourdomain.com
 2. 点击 Hero CTA“探索合作机遇”，应跳转到 `/zh/contact`。
 3. DevTools 切到宽度 375，检查：汉堡菜单、轮播可滑动、业务卡片单列、无横向滚动。
 4. 登录 `http://localhost:3000/admin/login` 后进入 `/admin/home` 修改任意文案或计数器，保存后刷新首页应生效。
+
+
+## GitHub 冲突（你截图那批文件）的命令行快速解决
+如果 GitHub 显示该分支与目标分支冲突，可在本地执行：
+
+```bash
+# 1) 切到你的工作分支
+git checkout <your-branch>
+
+# 2) 运行自动解决脚本（参数填目标分支，如 main / master）
+./scripts/resolve-github-conflicts.sh main
+
+# 3) 检查是否还有未解决冲突
+git status
+
+# 4) 若无未解决冲突，提交并推送
+git commit -m "chore: resolve GitHub merge conflicts"
+git push
+```
+
+脚本会优先处理你截图中那 10 个冲突文件，保留当前分支（home-focused 版本）内容。
