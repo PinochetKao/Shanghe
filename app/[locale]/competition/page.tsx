@@ -34,14 +34,14 @@ export default function CompetitionPage({ params }: { params: { locale: Locale }
         <input type="hidden" name="locale" value={params.locale} />
         <input type="text" name="website" className="hidden" tabIndex={-1} autoComplete="off" />
         <input name="name" placeholder="name" className="rounded border px-3" required />
-        <select name="gender" className="rounded border px-3" required>{dict.competition.gender.map((v) => <option key={v}>{v}</option>)}</select>
+        <select name="gender" className="rounded border px-3" required>{dict.competition.gender.map((v: string) => <option key={v}>{v}</option>)}</select>
         <input name="phone" placeholder="phone" className="rounded border px-3" required />
         <input name="email" placeholder="email" className="rounded border px-3" required />
         <input name="school" placeholder="school" className="rounded border px-3" required />
         <input name="department" placeholder="department" className="rounded border px-3" required />
         <input name="major" placeholder="major" className="rounded border px-3" required />
-        <select name="grade" className="rounded border px-3" required>{dict.competition.grades.map((v) => <option key={v}>{v}</option>)}</select>
-        <select name="educationLevel" className="rounded border px-3 md:col-span-2" required>{dict.competition.education.map((v) => <option key={v}>{v}</option>)}</select>
+        <select name="grade" className="rounded border px-3" required>{dict.competition.grades.map((v: string) => <option key={v}>{v}</option>)}</select>
+        <select name="educationLevel" className="rounded border px-3 md:col-span-2" required>{dict.competition.education.map((v: string) => <option key={v}>{v}</option>)}</select>
         <button id="register" className="rounded bg-brand px-4 py-2 text-white md:col-span-2">{dict.common.submit}</button>
         {msg && <p className="text-sm text-green-700 md:col-span-2">{msg}</p>}
       </form>

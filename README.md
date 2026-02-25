@@ -49,18 +49,23 @@ npm run dev
 ```bash
 docker compose up -d --build
 ```
+> 容器启动时会自动执行 `prisma migrate deploy` 和 `db:seed`，然后启动 Next.js。
 
 ## 里程碑验收
+
+以下按里程碑顺序执行，每一步都可独立验证。
 
 ### 里程碑 1：骨架 + 多语言 + 响应式
 - 检查路径：`/zh` `/en` `/ru`
 - 点击 🌐 切换语言，保持当前页面路径
 - 手机模式（DevTools：iPhone 12）下检查无横向滚动，汉堡菜单可用
+- 语言配置文件：`lib/i18n.ts`，新增语言后切换逻辑自动生效
 
 ### 里程碑 2：后台 + 新闻 CRUD
 1. 登录 `/admin/login`
 2. 进入 `/admin/news/new` 创建 zh/en/ru 新闻
 3. 前台访问 `/zh/news` 与 `/zh/news/<slug>` 验证渲染
+4. 再访问 `/en/news` `/ru/news` 验证按语言读取标题与摘要
 
 ### 里程碑 3：联系表单闭环
 1. 前台 `/zh/contact` 提交表单
@@ -108,6 +113,8 @@ server {
   listen 80;
   server_name yourdomain.com;
 
+  client_max_body_size 20m;
+
   location / {
     proxy_pass http://127.0.0.1:3000;
     proxy_set_header Host $host;
@@ -134,6 +141,7 @@ sudo certbot --nginx -d yourdomain.com
 - 迁移失败：`docker compose logs app` 查看报错，执行 `npx prisma migrate deploy`
 - 后台无法登录：确认已执行 `npm run db:seed` 且 `.env` 中管理员账号一致
 - 文件下载404：确认 `public/files/competition.pdf` 存在
+- Docker 一键启动失败：`docker compose logs app db` 检查数据库健康检查和迁移日志
 
 ## DevTools 响应式验证
 - Chrome 打开页面 -> F12 -> Toggle Device Toolbar

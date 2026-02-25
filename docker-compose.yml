@@ -10,12 +10,18 @@ services:
       - "5432:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d shanghe"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
   app:
     build: .
     restart: always
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       DATABASE_URL: postgresql://postgres:postgres@db:5432/shanghe
       ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@example.com}
@@ -23,6 +29,8 @@ services:
       NODE_ENV: production
     ports:
       - "3000:3000"
+    command: >
+      sh -c "npx prisma migrate deploy && npm run db:seed && npm run start"
 
 volumes:
   pg_data:

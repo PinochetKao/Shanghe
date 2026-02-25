@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   const list = await prisma.competitionRegistration.findMany({ orderBy: { createdAt: 'desc' } });
   const headers = ['name','gender','phone','email','school','department','major','grade','educationLevel','locale','createdAt'];
