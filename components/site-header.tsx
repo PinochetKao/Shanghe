@@ -20,11 +20,11 @@ export function SiteHeader({ locale, nav }: { locale: string; nav: Record<string
   return (
     <header className="sticky top-0 z-10 border-b bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
-        <Link href={`/${locale}`} className="font-semibold text-[#003366]">Shanghe</Link>
+        <Link href={`/${locale}`} className="font-semibold text-brand">Shanghe</Link>
         <button className="rounded border px-3 md:hidden" onClick={() => setOpen((v) => !v)}>☰</button>
         <nav className="hidden items-center gap-4 md:flex">
           {links.map(([key, href]) => (
-            <Link key={key} href={href} className="nav-link text-sm text-[#333333]">{nav[key]}</Link>
+            <Link key={key} href={href} className="text-sm hover:text-brand">{nav[key]}</Link>
           ))}
           <LanguageSwitcher currentLocale={locale} />
         </nav>

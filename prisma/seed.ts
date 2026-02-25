@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
-import { defaultHomeConfig } from '../lib/home';
 
 const prisma = new PrismaClient();
 
@@ -15,22 +14,7 @@ async function main() {
     create: { email, passwordHash }
   });
 
-  const existing = await prisma.homePageConfig.findFirst();
-  if (!existing) {
-    await prisma.homePageConfig.create({
-      data: {
-        hero: defaultHomeConfig.hero,
-        sectors: defaultHomeConfig.sectors,
-        featuredProjects: defaultHomeConfig.featuredProjects,
-        affiliations: defaultHomeConfig.affiliations,
-        about: defaultHomeConfig.about,
-        footer: defaultHomeConfig.footer
-      }
-    });
-  }
-
   console.log(`Seeded admin user: ${email}`);
-  console.log('Seeded home page default config.');
 }
 
 main().finally(async () => prisma.$disconnect());

@@ -9,7 +9,7 @@ export function PageShell({ locale, children }: { locale: Locale; children: Reac
     <>
       <SiteHeader locale={locale} nav={dict.nav} />
       <main className="mx-auto min-h-[70vh] w-full max-w-6xl px-4 py-8">{children}</main>
-      <SiteFooter locale={locale} />
+      <SiteFooter />
     </>
   );
 }

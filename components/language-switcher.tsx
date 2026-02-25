@@ -9,15 +9,6 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: string }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  const makeTarget = (nextLocale: string) => {
-    const segments = pathname.split('/');
-    if (segments.length > 1 && i18nConfig.locales.some((l) => l.code === segments[1])) {
-      segments[1] = nextLocale;
-      return segments.join('/') || '/';
-    }
-    return `/${nextLocale}${pathname.startsWith('/') ? pathname : `/${pathname}`}`;
-  };
-
   return (
     <div className="relative">
       <button
@@ -29,16 +20,19 @@ export function LanguageSwitcher({ currentLocale }: { currentLocale: string }) {
       </button>
       {open && (
         <div className="absolute right-0 z-20 mt-2 w-44 rounded-lg border bg-white p-2 shadow-lg">
-          {i18nConfig.locales.map((item) => (
-            <Link
-              key={item.code}
-              href={makeTarget(item.code)}
-              onClick={() => setOpen(false)}
-              className="block rounded px-3 py-2 text-sm hover:bg-slate-100"
-            >
-              {item.nativeName}
-            </Link>
-          ))}
+          {i18nConfig.locales.map((item) => {
+            const target = pathname.replace(/^\/(zh|en|ru)/, `/${item.code}`);
+            return (
+              <Link
+                key={item.code}
+                href={target}
+                onClick={() => setOpen(false)}
+                className="block rounded px-3 py-2 text-sm hover:bg-slate-100"
+              >
+                {item.nativeName}
+              </Link>
+            );
+          })}
         </div>
       )}
     </div>
